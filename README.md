@@ -36,7 +36,15 @@ git clone https://github.com/MoonHighway/intro-to-typescript
 > [sync it](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
 > with this repository at the start of the workshop.
 
-### 3. Open your editor and terminal
+### 3. Install the dependencies
+
+Run this command in your terminal to install the required dependencies:
+
+```sh
+npm run setup
+```
+
+### 4. Open your editor and terminal
 
 There are coding exercises throughout this workshop. To make sure you're ready:
 

@@ -1,0 +1,7 @@
+{
+  "name": "intro-to-typescript",
+  "scripts": {
+    "setup": "npm install --prefix 01-a-world-of-types/lab/start/ && npm install --prefix 02-types-in-action/lab/start/"
+  },
+  "author": "Simon Plenderleith <simon@simonplend.co.uk> (https://simonplend.com/)"
+}
