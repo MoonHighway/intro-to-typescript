@@ -1,6 +1,6 @@
 // -- START --
 
-interface Recipe {
+type Recipe = {
   timings?: {
     prep: number;
     cook: number;

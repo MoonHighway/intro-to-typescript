@@ -1,12 +1,12 @@
 // -- Intersection type with type aliases --
 
 {
-  interface City {
+  type City = {
     name: string;
     country: string;
   }
 
-  interface Population {
+  type Population = {
     population: number;
   }
 
@@ -31,7 +31,7 @@
 // -- Intersection type with type alias and inline type --
 
 {
-  interface City {
+  type City = {
     name: string;
     country: string;
   }

@@ -1,35 +1,3 @@
-// -- Interface --
-
-{
-  interface City {
-    name: string;
-    population: number;
-    country: string;
-  }
-
-  let newYork: City = {
-    name: 'New York',
-    population: 8537673,
-    country: 'United States'
-  };
-
-  // Missing `City` interface property `population`
-  // Error: Property 'population' is missing in type '{ name: string; country: string; }' but required in type 'City'.
-  let london: City = {
-    name: 'London',
-    country: 'United Kingdom'
-  };
-
-  // Property which doesn't exist in `City` interface
-  // Error: Object literal may only specify known properties, and 'language' does not exist in type 'City'.
-  let paris: City = {
-    name: 'Paris',
-    population: 2140526,
-    country: 'France',
-    language: 'French'
-  };
-}
-
 // -- Type alias --
 
 {
@@ -65,7 +33,7 @@
 // -- Optional property --
 
 {
-  interface City {
+  type City = {
     name: string;
     population?: number;
     country: string;
@@ -86,7 +54,7 @@
 // -- Readonly property --
 
 {
-  interface City {
+  type City = {
     readonly name: string;
     population: number;
     country: string;
@@ -102,4 +70,36 @@
   amsterdam.name = 'Rotterdam';
 
   amsterdam.population = 651446;
+}
+
+// -- Interface --
+
+{
+  interface City {
+    name: string;
+    population: number;
+    country: string;
+  }
+
+  let newYork: City = {
+    name: 'New York',
+    population: 8537673,
+    country: 'United States'
+  };
+
+  // Missing `City` interface property `population`
+  // Error: Property 'population' is missing in type '{ name: string; country: string; }' but required in type 'City'.
+  let london: City = {
+    name: 'London',
+    country: 'United Kingdom'
+  };
+
+  // Property which doesn't exist in `City` interface
+  // Error: Object literal may only specify known properties, and 'language' does not exist in type 'City'.
+  let paris: City = {
+    name: 'Paris',
+    population: 2140526,
+    country: 'France',
+    language: 'French'
+  };
 }

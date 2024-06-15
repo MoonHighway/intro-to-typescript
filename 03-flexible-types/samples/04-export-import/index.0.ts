@@ -2,7 +2,7 @@
 
 // city.ts
 
-export interface City {
+export type City = {
   name: string;
   country: string;
 }
