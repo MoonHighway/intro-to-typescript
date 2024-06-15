@@ -42,7 +42,7 @@
 // -- Truthiness narrowing --
 
 {
-  function formatLanguagesList(languages: Array<string> | null) {
+  function formatLanguagesList(languages: string[] | null) {
     if (languages) {
       return languages.join(', ');
     }
@@ -175,7 +175,7 @@
 
   // -- array --
 
-  function arrayToString(value?: Array<number>) {
+  function arrayToString(value?: number[]) {
     if (Array.isArray(value)) {
       return value.join(', ');
     }

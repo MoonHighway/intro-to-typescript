@@ -4,8 +4,8 @@ interface Recipe {
   name: string;
   for: string;
   vegetarian: boolean;
-  ingredients?: Array<string>;
-  steps?: Array<string>;
+  ingredients?: string[];
+  steps?: string[];
   timings?: {
     prep: number;
     cook: number;
@@ -80,7 +80,7 @@ recipe2.timings = {
 
 // -- Display recipes --
 
-type Recipes = Array<Recipe>;
+type Recipes = Recipe[];
 
 const recipes: Recipes = [recipe1, recipe2];
 
