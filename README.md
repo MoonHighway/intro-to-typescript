@@ -16,9 +16,12 @@ commands in your terminal:
 node --version
 ```
 
-> We highly recommend that you use [Visual Studio Code](https://code.visualstudio.com/)
-> as your editor for this course as it provides lots of handy TypeScript related features,
-> but if you prefer to use a different editor that's fine too!
+We highly recommend that you use [Visual Studio Code](https://code.visualstudio.com/)
+as your editor for this course as it provides lots of handy TypeScript related features,
+but if you prefer to use a different editor that's fine too!
+
+If you have GitHub Copilot or a similar AI coding assistant extension installed, we
+recommend disabling that too so you can tackle the exercises and labs yourself.
 
 ### 2. Clone this repository with Git
 
