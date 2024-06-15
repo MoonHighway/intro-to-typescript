@@ -1,7 +1,7 @@
 // -- Array generic syntax --
 
 {
-  const populations: Array<number> = [8537673, 2140526, 3769495];
+  const populations: number[] = [8537673, 2140526, 3769495];
 
   // Error: Argument of type 'string' is not assignable to parameter of type 'number'.
   populations.push('8.6 million');
