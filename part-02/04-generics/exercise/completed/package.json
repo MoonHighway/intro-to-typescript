@@ -1,0 +1,7 @@
+{
+  "name": "04-generics-exercise-completed",
+  "scripts": {
+    "preserve": "rm -rf dist && mkdir dist && cp static/* dist/",
+    "serve": "npx esbuild src/app.ts --bundle --format=esm --sourcemap --outdir=dist/js --servedir=dist"
+  }
+}

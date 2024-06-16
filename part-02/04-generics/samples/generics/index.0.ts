@@ -1,3 +1,8 @@
+// TODO: Add more detailed examples here:
+//       - Type parameter inference
+//       - Type parameter default types
+//       - Generic constraints (extends)
+
 // Generic function
 
 {

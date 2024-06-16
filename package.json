@@ -1,7 +1,14 @@
 {
   "name": "intro-to-typescript",
   "scripts": {
-    "setup": "npm install --prefix 01-a-world-of-types/lab/start/ && npm install --prefix 02-types-in-action/lab/start/"
+    "setup": "echo 'TODO: This needs to be reimplemented'"
   },
-  "author": "Simon Plenderleith <simon@simonplend.co.uk> (https://simonplend.com/)"
+  "author": "Simon Plenderleith <simon@simonplend.co.uk> (https://simonplend.com/)",
+  "devDependencies": {
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^20.14.2",
+    "esbuild": "^0.23.0",
+    "tsx": "^4.15.5",
+    "typescript": "^5.4.5"
+  }
 }

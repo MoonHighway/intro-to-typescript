@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kanban Board Lab</title>
+
+    <style>
+      body {
+        font-family: "Gill Sans", sans-serif;
+        margin: 2em;
+      }
+
+      h2 {
+        padding: 0.5em;
+        background-color: #ed6a5a;
+        color: #f1e3d3;
+      }
+
+      hr {
+        margin: 1em 0;
+      }
+
+      .board {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        flex: 1;
+      }
+
+      .column:not(:last-child) {
+        margin-right: 2em;
+      }
+
+      .task {
+        border: 4px dotted #99c1b9;
+        padding: 1.2em;
+        margin-bottom: 1em;
+      }
+
+      .task-title {
+        margin-top: 0;
+      }
+
+      .task-description {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kanban Board Lab</h1>
+
+    <div id="app"></div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
