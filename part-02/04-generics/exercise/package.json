@@ -1,0 +1,16 @@
+{
+  "name": "exercise",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "preserve": "rm -rf dist && mkdir dist && cp src/static/* dist/",
+    "serve": "npx esbuild src/app.ts --bundle --format=esm --sourcemap --outdir=dist/js --servedir=dist"
+  },
+  "keywords": [],
+  "author": "Simon Plenderleith <simon@simonplend.co.uk> (https://simonplend.com/)",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "esbuild": "^0.21.5"
+  }
+}
