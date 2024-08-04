@@ -1,8 +1,5 @@
 {
   "name": "intro-to-typescript",
-  "scripts": {
-    "setup": "echo 'TODO: This needs to be reimplemented'"
-  },
   "author": "Simon Plenderleith <simon@simonplend.co.uk> (https://simonplend.com/)",
   "devDependencies": {
     "@total-typescript/tsconfig": "^1.0.4",
@@ -10,5 +7,10 @@
     "esbuild": "^0.23.0",
     "tsx": "^4.15.5",
     "typescript": "^5.4.5"
-  }
+  },
+  "workspaces": [
+    "part-*/**/start",
+    "part-*/**/solution",
+    "part-*/**/completed"
+  ]
 }

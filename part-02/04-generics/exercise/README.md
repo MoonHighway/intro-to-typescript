@@ -1,4 +1,6 @@
-# Blog API Exercise
+# Exercise: Blog API 📝
+
+> **Part 2: Section 4: Generics**
 
 ## Setup
 

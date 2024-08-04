@@ -1,15 +1,3 @@
 {
-  "name": "music-trivia-lab",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Simon Plenderleith <simon@simonplend.co.uk> (https://simonplend.com/)",
-  "license": "MIT",
-  "devDependencies": {
-    "typescript": "^5.4.3"
-  }
+  "name": "02-types-in-action-lab-start"
 }

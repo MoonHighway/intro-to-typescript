@@ -1,4 +1,6 @@
-# Bad Data Lab
+# Lab: Bad Data 🙈
+
+> **Part 2: Section 4: Generics**
 
 ## Requirements
 
