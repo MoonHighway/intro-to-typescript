@@ -1,4 +1,6 @@
-# Music Trivia Lab
+# Music Trivia Lab 🎶
+
+> **Part 1: Section 2: Types in Action**
 
 ## Requirements
 

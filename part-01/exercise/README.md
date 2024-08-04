@@ -1,4 +1,6 @@
-# Trip Planner CLI
+# Exercise: Trip Planner CLI
+
+> **Part 1: Sections 1 - 3**
 
 ## Exercise Part 1: Project Setup
 

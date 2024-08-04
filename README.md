@@ -44,7 +44,7 @@ git clone https://github.com/MoonHighway/intro-to-typescript
 Run this command in your terminal to install the required dependencies:
 
 ```sh
-npm run setup
+npm install
 ```
 
 ### 4. Open your editor and terminal

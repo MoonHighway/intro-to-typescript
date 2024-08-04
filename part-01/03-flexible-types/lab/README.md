@@ -1,4 +1,6 @@
-# Userland Lab
+# Userland Lab 🧑
+
+> **Part 1: Section 3: Flexible Types**
 
 Create interface types that allow for detailed user profiles with dynamic object keys.
 

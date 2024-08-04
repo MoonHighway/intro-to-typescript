@@ -1,4 +1,4 @@
-# Recipes Lab
+# Recipes Lab 🧑‍🍳
 
 ## Requirements
 

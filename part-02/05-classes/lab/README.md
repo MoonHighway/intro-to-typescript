@@ -1,4 +1,4 @@
-# Kanban Lab ✅
+# Lab: Kanban ✅
 
 > **Part 2: Section 5: Classes**
 
