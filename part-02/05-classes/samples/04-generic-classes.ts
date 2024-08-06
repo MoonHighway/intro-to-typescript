@@ -1,8 +1,7 @@
 // -- Generic classes --
 
+// -- Non-generic class --
 {
-  // -- Non-generic class --
-
   // Elements in `languages` field array can only be strings
   // Can make `languages` field flexible by making class generic.
 
@@ -27,6 +26,7 @@
   //    ^?
 }
 
+// -- Make the class generic --
 {
   // Add `LanguageType` type parameter.
   class Country<LanguageType> {

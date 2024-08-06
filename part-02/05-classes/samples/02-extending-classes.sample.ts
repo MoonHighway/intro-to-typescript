@@ -41,10 +41,9 @@ class Country {
   console.log({ colombiaLanguages });
 }
 
+// -- Implement members for the `CountryWithCurrency` class --
 {
   /**
-   * -- Implement members for the `CountryWithCurrency` class --
-   *
    * - `CountryWithCurrency` class doesn’t have own members
    * - Accept `currency` field when we instantiate a new instance
    * - Create `constructor(name: string, code: string, currency)`
