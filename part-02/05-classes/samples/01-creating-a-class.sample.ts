@@ -1,15 +1,12 @@
 // -- Creating a class: fields, constructors, methods --
 
+// -- Plain JavaScript class --
 {
-  /**
-   * -- Plain JavaScript class --
-   */
-
   class Country {
     // Field declarations
-    // @ts-expect-error Member 'name' implicitly has an 'any' type. ts(7008)
-    name: string;
-    // @ts-expect-error Member 'code' implicitly has an 'any' type. ts(7008)
+    // @ts-expect-error: Member 'name' implicitly has an 'any' type. TS7008.
+    name;
+    // @ts-expect-error: Member 'code' implicitly has an 'any' type. TS7008.
     code;
   }
 
@@ -21,10 +18,9 @@
   console.log({ nigeria });
 }
 
+// -- Fields --
 {
   /**
-   * -- Fields --
-   *
    * - Properties are public and writeable by default
    * - Type annotation optional — defaults to any
    * - Initializers
@@ -48,10 +44,9 @@
   console.log({ nigeria });
 }
 
+// -- Constructors --
 {
   /**
-   * -- Constructors --
-   *
    * - Automatically called when class is instantiated
    * - Supports parameter types
    * - Can’t have return type annotations
@@ -77,14 +72,15 @@
   console.log({ nigeria });
 }
 
+// -- Constructor using parameter properties --
 {
   /**
-   * -- Constructor using parameter properties --
-   *
    * - "TypeScript offers special syntax for turning a constructor parameter into a class property with the same name and value."
    * - Parameter property is created by prefixing a constructor argument with a visibility modifier.
    * - Automatically initializes fields.
    * - Shorter syntax, can help reduce boilerplate.
+   * - Magic behaviour that isn't obvious when reading the code.
+   * - JavaScript code generated is the same as manually declaring the fields.
    */
 
   class Country {
@@ -96,10 +92,9 @@
   console.log({ nigeria });
 }
 
+// -- Methods --
 {
   /**
-   * -- Methods --
-   *
    * - Function inside a class
    * - Support same type annotations as functions
    * - Parameter types
