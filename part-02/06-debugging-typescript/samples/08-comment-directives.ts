@@ -1,16 +1,17 @@
-// TODO: Create samples
-
-// -- @ts-ignore --
+// -- Suppress an error with @ts-ignore --
 {
-  // TODO
+  // @ts-ignore
+  let x: number = 'string';
 }
 
-// -- @ts-expect-error --
+// -- Suppress an error with @ts-expect-error --
 {
-  // TODO
+  // @ts-expect-error: Type 'string' is not assignable to type 'number'.
+  let x: number = 'string';
 }
 
-// -- @ts-nocheck --
+// -- Unused '@ts-expect-error' directive --
 {
-  // TODO
+  // @ts-expect-error
+  let y: string = 'string';
 }
