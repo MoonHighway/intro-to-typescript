@@ -1,13 +1,13 @@
-# Exercise: Trip Planner CLI
+# Exercise: Trip Planner CLI 🧳
 
 > **Part 1: Sections 1 - 3**
 
-## Exercise Part 1: Project Setup
+## Stage 01: Project setup
 
-In the terminal, change into the `exercise` directory:
+In the terminal, change into the directory for this exercise:
 
 ```bash
-cd exercise
+cd part-01/exercise/start
 ```
 
 Create a `package.json` file with all of the default values:
@@ -15,8 +15,6 @@ Create a `package.json` file with all of the default values:
 ```bash
 npm init --yes
 ```
-
-Open up `package.json` to show what's been generated.
 
 Install [`typescript`](https://www.npmjs.com/package/typescript) package as a dependency:
 
@@ -40,12 +38,18 @@ npx tsc cli.ts
 
 Open up `cli.js` and notice how the code is almost identical to what we have in `cli.ts`.
 
-Note: You might see the following error in Visual Studio Code for `cli.ts` when `cli.js` is also open: `Cannot redeclare block-scoped variable 'destination'.` — this error can be ignored.
+Note: You might notice the following error in Visual Studio Code for `cli.ts` when `cli.js` is also open: `Cannot redeclare block-scoped variable 'destination'.` — this error can be ignored.
 
 Run the `cli.js` script with Node.js:
 
 ```bash
 node cli.js
+```
+
+Remove `cli.js`:
+
+```bash
+rm cli.js
 ```
 
 Open up `package.json`, remove the `test` script under `scripts` and add a `build` and a `cli` script:
@@ -55,6 +59,20 @@ Open up `package.json`, remove the `test` script under `scripts` and add a `buil
   "build": "tsc cli.ts",
   "cli": "node cli.js"
 }
+```
+
+Test the `build` script:
+
+```bash
+npm run build
+```
+
+Should see `cli.js` generated again.
+
+Test the `cli` script:
+
+```bash
+npm run cli
 ```
 
 In `cli.ts`, hover over the `destination` variable to show how TypeScript has inferred the type of `string`.
@@ -75,7 +93,7 @@ destination = destination.toUpperCase();
 
 Hover over `toUpperCase` and show the type error:
 
-```
+```plaintext
 error TS2339: Property 'toUpperCase' does not exist on type 'number'.
 ```
 
@@ -103,7 +121,7 @@ Build and run the CLI:
 npm run build && npm run cli
 ```
 
-## Exercise Part 2: TODO
+## Stage 02: TypeScript configuration
 
 Clear the contents of `cli.ts`.
 
@@ -113,18 +131,20 @@ Import the Node.js filesystem module:
 import fs from "node:fs/promises";
 ```
 
-Hover over `"node:fs/promises"` and notice the type error:
+Hover over `"node:fs/promises"` and notice the two type errors:
 
-```
+```plaintext
 Cannot find module 'node:fs' or its corresponding type declarations.
+
+ESM syntax is not allowed in a CommonJS module when 'verbatimModuleSyntax' is enabled.ts(1286)
 ```
 
-We need to configure the TypeScript compiler so it knows that this is a Node.js project.
+To fix the first error, we need to configure the TypeScript compiler so it knows that this is a Node.js project.
 
-Install a [base TSConfig](https://github.com/tsconfig/bases) for Node.js v20:
+Install a [base TSConfig](https://github.com/total-typescript/tsconfig/):
 
 ```bash
-npm install --save-dev @tsconfig/node20
+npm install --save-dev @total-typescript/tsconfig
 ```
 
 To use this base TSConfig, create a new file, `tsconfig.json`, and add the following configuration:
@@ -132,10 +152,10 @@ To use this base TSConfig, create a new file, `tsconfig.json`, and add the follo
 ```json
 {
   // Pull in the preset configuration
-  "extends": "@tsconfig/node20/tsconfig.json",
+  "extends": "@total-typescript/tsconfig/tsc/no-dom/app",
   "compilerOptions": {
-    // Tell TypeScript where to put the compiled JavaScript files
-    // Can be whatever name you like, but `dist` or `build` are common conventions
+    // Tell TypeScript where to put the compiled JavaScript files.
+    // Can be whatever name you like, but `dist` or `build` are common conventions.
     "outDir": "dist"
   }
 }
@@ -145,10 +165,11 @@ When a `tsconfig.json` file exists in a directory it indicates that the director
 
 Now that we've configured this as a TypeScript project, we no longer need to point the TypeScript compiler at `cli.ts`.
 
-Update the `build` script in `package.json`:
+Update the `build` and `cli` scripts in `package.json`:
 
 ```json
-"build": "tsc"
+"build": "tsc",
+"cli": "node dist/cli.js"
 ```
 
 The last thing we need to do for TypeScript to correctly handle code that we'll be running with Node.js, is to install the types for the Node.js Core API:
@@ -159,41 +180,15 @@ npm install --save-dev @types/node
 
 Notice that the type error for the `node:fs` import has now been fixed.
 
-## Exercise Part 3: TODO
-
-Add code in `cli.ts` to read the contents of a JSON file:
-
-```typescript
-const destinationsJson = await fs.readFile("./data/destinations.json", {
-  encoding: "utf-8",
-});
-```
-
-Hover over `await` and notice the type error:
-
-```
-The current file is a CommonJS module and cannot use 'await' at the top level.
-```
-
-To be able to use `await` at the top level of our script — i.e. not inside an `async` function — we want TypeScript to treat this file as an ES module.
-
-Open `package.json` and add:
+To fix the ESM syntax error, open `package.json` and add:
 
 ```json
 "type": "module"
 ```
 
-Notice in `cli.ts` that the `await` type error has been fixed.
+Tells Node.js we're using ES modules in this project and the TypeScript compiler will detect that too.
 
-Add code in `cli.ts` to parse and output the data from the JSON file:
-
-```typescript
-const destinationsData = JSON.parse(destinationsJson);
-
-console.log(destinationsData);
-```
-
-TODO: node dist/cli.js
+Notice in `cli.ts` that the type error for ESM syntax has been fixed.
 
 Build and run the CLI:
 
@@ -201,7 +196,29 @@ Build and run the CLI:
 npm run build && npm run cli
 ```
 
-## Exercise Part 4: TODO
+Open up `dist/cli.js` to see its contents.
+
+## Stage 03: Load the destinations data
+
+Add code in `cli.ts` to read, parse and output the contents of a JSON file:
+
+```typescript
+const destinationsJson = await fs.readFile("./data/destinations.json", {
+  encoding: "utf-8",
+});
+
+const destinationsData = JSON.parse(destinationsJson);
+
+console.log(destinationsData);
+```
+
+Build and run the CLI:
+
+```bash
+npm run build && npm run cli
+```
+
+## Stage 04: Set up tsx for development
 
 Visual Studio Code and the TypeScript compiler are both doing type checking for us. [`tsx`](https://www.npmjs.com/package/tsx) is as a faster way for us to compile and run TypeScript code in development. During development, we can lean on Visual Studio Code to help us catch type errors while we're writing the code, and use `tsx` to run the code for us.
 
@@ -217,15 +234,15 @@ Open `package.json` and change the `cli` script to use `tsx`:
 "cli": "tsx cli.ts"
 ```
 
-Remove our compiled script, `cli.js`:
+Remove the `dist` directory to avoid confusion:
 
 ```bash
-rm cli.js
+rm -r dist/
 ```
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 5: TODO
+## Stage 05: Create a Destination object type
 
 Hover over the `destinationsJson` to see the inferred type: `string`. This is fine, as `readFile()` function will return the contents of our JSON file as one big long string.
 
@@ -247,11 +264,13 @@ npm run cli
 
 Our script crashes with this error:
 
-```
+```plaintext
 TypeError: destinationsData.toUpperCase is not a function
 ```
 
-Notice that this is a JavaScript error, not a TypeScript error. We can improve the type safety of our code by adding a type for the `destinationsData` variable.
+Notice that this is a JavaScript error, not a TypeScript error
+
+ We can improve the type safety of our code by adding a type for the `destinationsData` variable.
 
 Comment out the `toUpperCase()` call:
 
@@ -279,7 +298,7 @@ type Destination = {
   name: string;
   country: string;
   description: string;
-}
+};
 ```
 
 Add properties which are arrays:
@@ -287,7 +306,6 @@ Add properties which are arrays:
 ```typescript
 type Destination = {
   // ...
-  top_attractions: string[];
   local_dishes: string[];
   activities: string[];
 }
@@ -317,11 +335,11 @@ Run the compiled app:
 node dist/cli.js
 ```
 
-## Exercise Part 6: TODO
+## Stage 06: Create a function that has types
 
 Rename `cli.ts` to `destinations.ts`.
 
-Wrap file reading code in an async function:
+Remove the `console.log()` and wrap file reading code in an async function:
 
 ```typescript
 export async function loadDestinations() {
@@ -356,45 +374,40 @@ Create a new file, `cli.ts`, and add this code to call our `loadDestinations()` 
 ```typescript
 import { loadDestinations } from "./destinations.js";
 
-const { destinations } = await loadDestinations();
+const destinations = await loadDestinations();
 
 console.log(destinations);
 ```
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 7: TODO
+## Stage 07: Add error handling
 
-Add error handling to our code.
-
-In `destinations.ts`, refactor the `loadDestinations()` function:
+In `destinations.ts`, refactor the `loadDestinations()` function and wrap code in a `try/catch` block:
 
 ```typescript
 let destinationsData: Destination[] = [];
 
-// Wrap code in a try/catch statement
 try {
   const destinationsJson = await fs.readFile("./data/destinations.json", {
     encoding: "utf-8",
   });
 
   destinationsData = JSON.parse(destinationsJson);
-// Errors can only have type `any` or `unknown`
-} catch (error: unknown) {
+} catch (error) {
   return { destinations: null, error };
 }
 ```
 
+Notice how `error` has a type of `unknown`.
+
 Change final `return` statement in `loadDestinations()` function to return an object:
 
 ```typescript
-return {
-  destinations: destinationsData,
-  error: null,
-};
+return { destinations: destinationsData, error: null };
 ```
 
-Update ` loadDestinations()` function return type:
+Update `loadDestinations()` function return type:
 
 ```typescript
 export async function loadDestinations(): Promise<{
@@ -430,13 +443,13 @@ Run the CLI: `npm run cli`
 
 Should see an error on the command-line.
 
-## Exercise Part 8: TODO
+## Stage 08: Install a third-party library with built-in types
 
 Add colour to our error message with the library [`chalk`](https://www.npmjs.com/package/chalk).
 
 Open the page for the `chalk` package on npm: [https://www.npmjs.com/package/chalk](https://www.npmjs.com/package/chalk)
 
-Notice the `TS` icon next to the `chalk` package name and hover over it. It tells us that "This package contains built-in TypeScript declarations". This means that we don't need to install an `@types` package.
+Notice the `TS` icon next to the `chalk` package name and hover over it. It tells us that "This package contains built-in TypeScript declarations". This means that we don't need to install an `@types` package with type definitions as they're already in the package.
 
 Install `chalk` as a dependency:
 
@@ -468,13 +481,11 @@ Run the CLI: `npm run cli`
 
 The error message text is now red.
 
-Change the filepath in the `loadDestinations()` function back to `./data/destinations.json` and check our CLI is now working correctly:
+Change the filepath in the `loadDestinations()` function back to `./data/destinations.json`
 
-```bash
-npm run cli
-```
+Run the CLI: `npm run cli`
 
-## Exercise Part 9: TODO
+## Stage 09: Create a trip planner factory function
 
 Create a new file, `trip-planner.ts`.
 
@@ -491,7 +502,7 @@ Create a new function:
 export function createTripPlanner() {}
 ```
 
-Create a `readline` interface:
+Inside the function, create a `readline` interface:
 
 ```typescript
 const rl = readline.createInterface({ input: stdin, output: stdout });
@@ -505,7 +516,7 @@ async function ask(question) {}
 
 Hover over the `question` parameter and notice the type error:
 
-```
+```plaintext
 Parameter 'question' implicitly has an 'any' type.
 ```
 
@@ -548,7 +559,9 @@ return {
 };
 ```
 
-## Exercise Part 10: TODO
+Hover over variables and functions to observe their types.
+
+## Stage 10: Use the trip planner
 
 In `cli.ts`, import the `createTripPlanner()` function after the other import statements:
 
@@ -586,9 +599,9 @@ tripPlanner.stop();
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 11: TODO
+## Stage 11: Dynamic destinations
 
-Use our `destinations` data to dynamically generate the list of destinations:
+In `cli.ts`, let's use our `destinations` data to dynamically generate the list of destinations:
 
 ```typescript
 const destinationsList = destinations
@@ -598,7 +611,7 @@ const destinationsList = destinations
 
 Notice the auto suggestions as we typed `destination.`.
 
-Notice what happens if we change `destination.name` to `destination.whatever`. This is type safety in action!
+Notice what happens if we change `destination.name` to `destination.whatever`. This is type checking in action!
 
 Update the question to use `destinationsList`:
 
@@ -625,19 +638,9 @@ And wrap output of the user response in another colour:
 console.log(chalk.bgBlue(`\nYou chose: ${userChoice}\n`));
 ```
 
-Use the TypeScript compiler to build the app:
+Run the CLI: `npm run cli`
 
-```bash
-npm run build
-```
-
-Run the compiled app:
-
-```bash
-node dist/cli.js
-```
-
-## Exercise Part 12: TODO
+## Stage 12: Add trip preference questions
 
 In `cli.ts`, create a `questions` array above the `tripPlanner`:
 
@@ -683,13 +686,10 @@ Now we'll update our code to use these questions and choices.
 In `trip-planner.ts`, add a `choices` parameter to the `ask` function:
 
 ```typescript
-async function ask(
-  question: string,
-  choices: string[]
-): Promise<string> {
+async function ask(question: string, choices: string[]): Promise<string> {
 ```
 
-Create a list from the choices:
+Inside the function, build a list from the choices:
 
 ```typescript
 const choiceList = choices
@@ -700,7 +700,7 @@ let questionText = question + "\n\n";
 questionText += choiceList + "\n\n";
 ```
 
-Rename `userResponse` to `userChoice` and change `question` to `questionText`:
+Replace `question` with `questionText` and rename `userResponse` to `userChoice`:
 
 ```diff
 - const userResponse = await rl.question(question);
@@ -765,7 +765,7 @@ And pass `choiceList` to `chalk.greenBright()`:
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 13: TODO
+## Stage 13: Parse destinations metadata
 
 Open up `destinations.ts`.
 
@@ -775,9 +775,11 @@ Before the `return` statement in the `loadDestinations()` function, extract the 
 const destinationsMetadata = destinationsData.flatMap((destination) => {
   return destination.local_dishes.map((dish) => ({
     name: dish,
-    // Different metadata available for each destination, so later we want to be able to identify what type of metadata this is.
+    // Different metadata available for each destination.
+    // Later we want to be able to identify what type of metadata this is.
     type: "food",
-    // Include destination ID in this object so we know which destination this piece of metadata relates to.
+    // Include destination ID in this object so we know which destination
+    // this piece of metadata relates to.
     destinationId: destination.id,
   }));
 });
@@ -819,9 +821,9 @@ Remove `console.log()` call:
 - console.log({ destinationsMetadata });
 ```
 
-## Exercise Part 14: TODO
+## Stage 14: Refactor types so they can be reused
 
-Create a function to make this data available:
+In `destinations.ts`, create a function to make the destinations metadata available:
 
 ```typescript
 // Want `filter` parameter to be an object,
@@ -896,7 +898,7 @@ Cut and paste the `Destination` and `DestinationMetadata` interfaces from `cli.t
 
 Cut and paste the `Question` type from `cli.ts` and add it in to `types.ts`.
 
-Add the `export` keyword before each `interface` declaration in `types.ts`, for example:
+Add the `export` keyword before each `type` declaration in `types.ts`, for example:
 
 ```typescript
 export type Destination = {
@@ -950,7 +952,7 @@ After all this refactoring, we have one more type error left to fix.
 
 Hover over `choices` in the call to the `tripPlanner.ask()` function and notice the type error:
 
-```
+```plaintext
 Argument of type 'DestinationMetadata[]' is not assignable to parameter of type 'string[]'.
 ```
 
@@ -983,7 +985,7 @@ We need to open `trip-planner.ts` and update the `map()` callback in the `ask()`
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 15: TODO
+## Stage 15: Give the user random choices
 
 Reduce the number of choices we give the user for each question, and make them random.
 
@@ -1012,6 +1014,8 @@ shuffledItems.sort(() => 0.5 - Math.random());
 return shuffledItems.slice(0, count);
 ```
 
+([`structuredClone()` documentation on MDN](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone))
+
 Update the `ask` function to use our new `pickRandomItems()` function:
 
 ```diff
@@ -1025,7 +1029,7 @@ Update the `ask` function to use our new `pickRandomItems()` function:
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 16: TODO
+## Stage 16: Validate user choices
 
 Display the name of the food the user chose, instead of the number they entered.
 
@@ -1038,6 +1042,17 @@ const choice = randomChoices[parseInt(userChoice, 10) - 1];
 
 // Replace `return userChoice;` with this
 return choice;
+```
+
+Hover over the `return` keyword and notice the type error. This happens because we have `noUncheckedIndexedAccess` set to `true` in our TSConfig.
+
+Fix it by checking the indexed access:
+
+```typescript
+if (!choice) {
+  console.error(chalk.redBright("Invalid choice. Please try again.\n"));
+  return ask(question, choices);
+}
 ```
 
 Hover over the `choice` variable and notice the type TypeScript has inferred.
@@ -1062,7 +1077,7 @@ In `cli.ts`, alter the string in the `console.log()` call to access the `name` p
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 17: TODO
+## Stage 17: Retrieve destination by ID
 
 Tell the user the name of the country which relates to the choice the user made.
 
@@ -1113,7 +1128,7 @@ console.log(chalk.bgBlue(`\nYou chose ${userChoice.name} from ${destination.name
 
 Notice the type error when you hover over `destination`:
 
-```
+```plaintext
 'destination' is possibly 'undefined'.
 ```
 
@@ -1129,7 +1144,7 @@ This narrows the type of the `destination` variable from `Destination | undefine
 
 Hover over `destination` at different places in this code to see this in action.
 
-## Exercise Part 18: TODO
+## Stage 18: Suggest a country to visit
 
 In `trip-planner.ts`, create a new function afer the `ask()` function:
 
@@ -1168,9 +1183,7 @@ tripPlanner.suggest(userChoice, destination);
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 19: TODO
-
-Add activities metadata for each destination.
+## Stage 19: Parse activites metadata
 
 In `destinations.ts`, refactor the `flatMap` callback that's used to build the `destinationsData` array:
 
@@ -1223,9 +1236,9 @@ Use this new activities metadata in `cli.ts`:
 
 Run the CLI: `npm run cli`
 
-## Exercise Part 20: TODO
+## Stage 20: Improve types for destinations metadata
 
-Improve the types for destination metadata.
+Show in `destinations.ts` how we can set any values for the `type` property in the objects returned by the `map()` callback functions.
 
 In `types.ts`, create `Food` intersection type after the `DestinationMetadata` type:
 
@@ -1234,6 +1247,8 @@ export type Food = DestinationMetadata & {
   type: "food";
 };
 ```
+
+This is an example of a string type literal.
 
 Create an `Activity` intersection type:
 
@@ -1291,65 +1306,7 @@ Can now remove the type annotation from the `destinationsMetadata` variable:
 + const destinationsMetadata =
 ```
 
-## Exercise Part 21: TODO
-
-Parse attractions for all destinations in `destinations.ts`:
-
-```typescript
-const attractions = destination.top_attractions.map((attraction) => ({
-  destinationId: destination.id,
-  name: attraction,
-  type: "attraction",
-}));
-```
-
-And add them to the array of destination metadata:
-
-```diff
-- return [...foods, ...activities];
-+ return [...foods, ...activities, ...attractions];
-```
-
-Create `Attraction` intersection type in `types.ts`:
-
-```typescript
-export type Attraction = DestinationMetadata & {
-  type: "attraction";
-};
-```
-
-In `destinations.ts`, add the `Attraction` type to the imported types:
-
-```diff
- import type {
-   DestinationMetadata,
-   Food,
-   Activity,
-+  Attraction,
- } from "./types.ts";
-```
-
-Pass the `Attraction` type as a type argument to the `map()` callback for attractions:
-
-```diff
-- const attractions = destination.top_attractions.map((attraction) => ({
-+ const attractions = destination.top_attractions.map<Attraction>((attraction) => ({
-```
-
-In  `cli.ts`, use the new activities metadata in the `questions` array:
-
-```diff
-   },
-   {
-     question: "What would you like to do on your trip?",
--    choices: destinations.getMetadata({ type: "activity" }),
-+    choices: [
-+      ...destinations.getMetadata({ type: "activity" }),
-+      ...destinations.getMetadata({ type: "attraction" }),
-+    ],
-   },
- ];
-```
+## Stage 21: Build for distribution
 
 Use the TypeScript compiler to build the app:
 
@@ -1357,23 +1314,16 @@ Use the TypeScript compiler to build the app:
 npm run build
 ```
 
+Explore the compiled JavaScript files in the `dist/` directory.
+
 Run the compiled app:
 
 ```bash
 node dist/cli.js
 ```
 
-## TODO: Move elsewhere: Dropped
+----
 
-These have been dropped out of the exercise due to time constraints, but could be used elsewhere in this course, or in a future course:
+## Attribution
 
-- **[Generics]:** Make `destinations.getMetadata()` a generic function + create `DestinationMetadataType` type
-- **[Union type]:** Create `ThingToDo` union type — only really useful if `destinations.getMetadata()` has been turned into a generic function (type `ThingToDo[]` won't be compatible with `DestinationMetadata[]` as is currently returned by `getMetadata()`)
-- **[Repetition of parsing + intersection type]:** Parse best time to visit for all destinations (`destinations.ts`) + create `BestTimeToVisit` intersection type
-- **[Repetition of parsing + intersection type]:** Parse languages for all destinations (`destinations.ts`) + create `language` intersection type
-- **[Runtime validation]:** Add in runtime validation in `ask` function
-
-
-## Data
-
-Data in `destinations.json` from [FreeTestApi.com](https://freetestapi.com/).
+The data in `destinations.json` is provided by FreeTestApi.com.
