@@ -12,6 +12,7 @@
     "part-*/**/solution",
     "part-*/**/completed",
     "part-01/exercise/completed/after-01-a-world-of-types",
-    "part-01/exercise/completed/after-02-types-in-action"
+    "part-01/exercise/completed/after-02-types-in-action",
+    "part-01/exercise/completed/after-03-flexible-types"
   ]
 }
