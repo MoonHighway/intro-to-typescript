@@ -10,6 +10,7 @@
   "workspaces": [
     "part-*/**/start",
     "part-*/**/solution",
-    "part-*/**/completed"
+    "part-*/**/completed",
+    "part-01/exercise/completed/after-01-a-world-of-types"
   ]
 }
