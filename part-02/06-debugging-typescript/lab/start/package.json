@@ -1,0 +1,7 @@
+{
+  "name": "06-debugging-typescript-lab-start",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.4.0"
+  }
+}

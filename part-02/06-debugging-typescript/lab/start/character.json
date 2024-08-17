@@ -1,0 +1,15 @@
+{
+  "name": "Leia Organa",
+  "height": "150",
+  "mass": "49",
+  "hair_color": "brown",
+  "skin_color": "light",
+  "gender": "female",
+  "films": [
+    "A New Hope",
+    "The Empire Strikes Back",
+    "Return of the Jedi",
+    "Revenge of the Sith"
+  ],
+  "url": "https://swapi.dev/api/people/5/"
+}
