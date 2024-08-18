@@ -1,5 +1,4 @@
 // -- Anonymous union type --
-
 {
   let language1 = null;
 
@@ -12,7 +11,6 @@
 }
 
 // -- Type alias for a union type --
-
 {
   type Language = string | null;
 
@@ -22,7 +20,6 @@
 }
 
 // -- Union type with literal types --
-
 {
   type CityName = 'Seoul' | 'Seattle' | 'Sydney';
 
@@ -34,7 +31,6 @@
 }
 
 // -- Function parameter with a union type --
-
 {
   type CityName = 'Berlin' | 'Tokyo' | 'Rome';
 

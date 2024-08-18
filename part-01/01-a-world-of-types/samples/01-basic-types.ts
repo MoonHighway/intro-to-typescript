@@ -1,5 +1,4 @@
 // -- Inferred types --
-
 {
   let topAttraction = 'Eiffel Tower';
 
@@ -29,7 +28,6 @@
 }
 
 // -- Type declarations using type annotations --
-
 {
   let topAttraction: string = 'Eiffel Tower';
 
@@ -61,7 +59,6 @@
 }
 
 // -- Inferred literal types for constant variables --
-
 {
   const utcOffset = 5;
 
@@ -73,7 +70,6 @@
 }
 
 // -- Avoid using the `any` type --
-
 {
   let language: any = 'Mandarin';
 
@@ -85,7 +81,6 @@
 }
 
 // -- Type aliases --
-
 {
   type City = string;
 

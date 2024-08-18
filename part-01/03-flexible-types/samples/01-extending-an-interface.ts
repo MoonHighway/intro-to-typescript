@@ -1,7 +1,4 @@
 // -- Extending an interface --
-
-// `extend` copies members from an existing interface and allows us to add new ones.
-
 {
   interface Country {
     readonly name: string;
@@ -32,7 +29,6 @@
 }
 
 // -- Extending multiple interfaces --
-
 {
   interface Country {
     readonly name: string;

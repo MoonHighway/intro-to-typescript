@@ -1,5 +1,4 @@
 // -- Type alias --
-
 {
   type City = {
     name: string;
@@ -31,7 +30,6 @@
 }
 
 // -- Optional property --
-
 {
   type City = {
     name: string;
@@ -52,7 +50,6 @@
 }
 
 // -- Readonly property --
-
 {
   type City = {
     readonly name: string;
@@ -73,7 +70,6 @@
 }
 
 // -- Interface --
-
 {
   interface City {
     name: string;

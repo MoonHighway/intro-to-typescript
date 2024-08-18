@@ -1,5 +1,4 @@
 // -- Structural typing: Object literal without type annotation --
-
 {
   type Point = {
     x: number;
@@ -17,7 +16,6 @@
 }
 
 // -- Structural typing: Objects with the same structure --
-
 {
   type Car = {
     wheels: number;

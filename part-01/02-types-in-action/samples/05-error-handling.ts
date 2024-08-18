@@ -1,5 +1,4 @@
 // -- Inferred error type `any` --
-
 {
   try {
     throw new Error('Invalid city ID');
@@ -10,7 +9,6 @@
 }
 
 // -- Explicit error type `unknown` --
-
 {
   try {
     throw new Error('Invalid city ID');

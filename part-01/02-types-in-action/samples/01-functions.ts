@@ -1,5 +1,4 @@
 // -- Parameter types --
-
 {
   // Inferred parameter type `any`
   function greetInEnglish(name) {
@@ -10,7 +9,7 @@
 
   console.log(greetInEnglish(52));
 
-  // Explicit parameter type `string`
+  // Explicitly annotated parameter type `string`
   function greetInFrench(name: string) {
     return `Bonjour, ${name}!`;
   }
@@ -22,7 +21,6 @@
 }
 
 // -- Return types --
-
 {
   // Inferred return type `string`
   function greetInItalian(name: string) {
@@ -31,7 +29,7 @@
 
   console.log(greetInItalian('Jordan'));
 
-  // Explicit return type `string`
+  // Explicitly annotated return type `string`
   function greetInSpanish(name: string): string {
     if (name === 'Jordan') {
       // Error: Type 'null' is not assignable to type 'string'.
@@ -45,7 +43,6 @@
 }
 
 // -- async functions --
-
 {
   // Inferred return type `Promise<any>`
   async function fetchTitle(url: string) {
@@ -70,47 +67,23 @@
   console.log(id);
 }
 
-// -- Function overloads --
-
+// -- Function type expressions --
 {
-  // -- Example 1 --
-  // Function which accepts one or three arguments.
+  type Person = {
+    name: string;
+    age: number;
+  };
 
-  // Function overload signatures
-  function add(x: number): number;
-  function add(x: number, y: number, z: number): number;
+  function fetchUserData(callback: (data: Person) => void) {
+    const data: Person = {
+      name: 'Li',
+      age: 52,
+    };
 
-  // Implementation signature
-  function add(x: number, y?: number, z?: number): number {
-      if (y !== undefined && z !== undefined) {
-          return x + y + z;
-      } else {
-          return x + x;
-      }
+    callback(data);
   }
 
-  console.log(add(5));
-
-  console.log(add(5, 7, 2));
-
-  // Error: No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments. ts(2575)
-  console.log(add(5, 7));
-
-  // -- Example 2 --
-  // Same number of arguments, but different types, use a union type instead of function overloads.
-
-  function multiply(value: number | { x: number, y: number }): number {
-      if (typeof value === 'number') {
-          return value * value;
-      } else {
-          return value.x * value.y;
-      }
-  }
-
-  console.log(multiply(5));
-
-  console.log(multiply({ x: 5, y: 7 }));
-
-  // Error: Argument of type '{ x: number; }' is not assignable to parameter of type 'number | { x: number; y: number; }'. ts(2345)
-  console.log(multiply({ x: 26 }));
+  fetchUserData((person) => {
+    console.log(person.name);
+  });
 }

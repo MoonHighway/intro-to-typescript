@@ -1,5 +1,4 @@
 // `typeof` type operator
-
 {
   const city1 = {
     name: 'Istanbul',

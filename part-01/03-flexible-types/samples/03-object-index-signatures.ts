@@ -1,5 +1,4 @@
 // -- Object index signatures --
-
 {
   type CountryStats = {
     name: string;
@@ -13,20 +12,19 @@
      * other properties to have a tyoe of `number` or `string`.
      */
     // [key: string]: number | string;
-  }
+  };
 
   const stats: CountryStats = {
-    name: "New Zealand"
+    name: "New Zealand",
   };
 
   // These properties are not allowed because they don't exist in the `CountryStats` type.
   // Add an index signature above to allow them.
-  stats.population = 5_135_300
-  stats.area = 268_021
+  stats.population = 5_135_300;
+  stats.area = 268_021;
 }
 
 // -- Interface with an object index signature --
-
 {
   interface CloudProvider {
     name: string;
