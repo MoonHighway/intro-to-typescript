@@ -1,4 +1,4 @@
-# Music Trivia Lab 🎶
+# Lab: Music Trivia 🎶
 
 > **Part 1: Section 2: Types in Action**
 

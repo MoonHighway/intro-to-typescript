@@ -1,4 +1,4 @@
-# Recipes Lab 🧑‍🍳
+# Lab: The Cookbook 🧑‍🍳
 
 ## Requirements
 
