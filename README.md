@@ -56,17 +56,3 @@ There are coding exercises throughout this workshop. To make sure you're ready:
   this project.
 
 You're now ready to get started! 🚀
-
-## Course Times ⏱
-
-You can expect the course to follow this schedule:
-
-| Time        | Activity        | Length |
-| ----------- | --------------- | ------ |
-| 9:00-10:00  | Section 1       | 1hr    |
-| 10:00-10:15 | Break           | 15min  |
-| 10:15-11:15 | Section 2       | 1hr    |
-| 11:15-11:30 | Break           | 15min  |
-| 11:30-12:30 | Section 3       | 1hr    |
-| 12:30-1:00  | Lab Activity    | 30min  |
-| 1:00        | End             |        |
