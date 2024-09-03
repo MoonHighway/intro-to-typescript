@@ -56,3 +56,7 @@ There are coding exercises throughout this workshop. To make sure you're ready:
   this project.
 
 You're now ready to get started! 🚀
+
+## Slides
+
+**[View the slides for this class](https://slides.com/moonhighway/intro-to-typescript/)**
